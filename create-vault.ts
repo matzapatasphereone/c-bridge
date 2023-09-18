@@ -3,7 +3,7 @@ import * as fcl from "@onflow/fcl";
 import { flowAuthorize } from "./flow-authorize";
 import { getFlowTxStatus } from "./get-status";
 
-const FLOW_RPC = process.env.FLOW_QUICKNODE_RPC;
+const FLOW_RPC = process.env.FLOW_RPC;
 
 fcl.config().put("accessNode.api", FLOW_RPC);
 
@@ -73,3 +73,13 @@ const createEmptyVault = async ({
 //   senderAddress: "0x2ab3795316e19c35",
 //   privateKey: "...",
 // })
+
+createEmptyVault({
+  contractAddress: "0x231cc0dbbcffc4b7",
+  contractName: "ceBNB",
+  contractPublicBalance: "/public/ceBNBBalance",
+  contractPublicReceiver: "/public/ceBNBReceiver",
+  contractStorageVault: "/storage/ceBNBVault",
+  senderAddress: "0x6062e99303ba6bd7",
+  privateKey: "be5e02c74092211448d9933b505acb3a210512a096d8400cfc20b2eb9ff01f30",
+})

@@ -3,7 +3,7 @@ import * as t from "@onflow/types";
 import { flowAuthorize } from "./flow-authorize";
 import { ethers } from "ethers";
 
-const FLOW_RPC = process.env.FLOW_QUICKNODE_RPC as string;
+const FLOW_RPC = process.env.FLOW_RPC as string;
 const SENDER_ADDRESS = process.env.SENDER_ADDR as string;
 const PRIVATE_KEY = process.env.SENDER_PRIVATE_KEY as string;
 const RECIPIENT_ADDRESS = process.env.RECEIVER_ADDR as string;

@@ -3,7 +3,7 @@ import * as fcl from "@onflow/fcl";
 import { flowAuthorize } from "./flow-authorize";
 import { sha3_256 } from "js-sha3";
 
-const FLOW_RPC = process.env.FLOW_QUICKNODE_RPC;
+const FLOW_RPC = process.env.FLOW_RPC;
 
 fcl.config().put("accessNode.api", FLOW_RPC);
 

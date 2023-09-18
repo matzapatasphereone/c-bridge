@@ -1,8 +1,9 @@
+import "dotenv/config"
 import * as fcl from "@onflow/fcl";
 import * as t from "@onflow/types";
 import { getFlowTokensPath } from "./get-token-flow-path";
 
-const FLOW_RPC = process.env.FLOW_QUICKNODE_RPC as string;
+const FLOW_RPC = process.env.FLOW_RPC as string;
 
 fcl.config().put("accessNode.api", FLOW_RPC);
 
@@ -67,4 +68,5 @@ const getBalanceForVault = async (identifier: string, address: string) => {
 };
 
 
-getUserVaults("0x2ab3795316e19c35");
+// getUserVaults("0x2ab3795316e19c35");
+getUserVaults("0x6062e99303ba6bd7")
