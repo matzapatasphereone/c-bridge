@@ -2,20 +2,10 @@
 
 # Flow bridge
 
-```
-import FungibleToken from 0xf233dcee88fe0abe
-import PegBridge from 0x08dd120226ec2213
-
-transaction() {
-  let provRef: &{FungibleToken.Provider}
-
-  prepare(acct: AuthAccount) {
-    self.provRef = acct.borrow<&{FungibleToken.Provider}>(from: /storage/ceMATICVault) ?? panic("Could not borrow a reference to the owner's vault")
-  }
-
-  execute {
-    let burnInfo = PegBridge.BurnInfo(amt: UFix64(3.06723287), withdrawChId: 137, withdrawAddr: "0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508", nonce: 1694793028431)
-    PegBridge.burn(from: self.provRef, info: burnInfo) 
-  }
-}
-```
+Important files are:
+- `evm-flow` -> Bridge from evm to flow (natives only)
+- `flow-evm` -> Bridge from flow to evm (back from evm-flow)
+- `index` -> has some util functions like time and amount estimations, transactions history and transaction_id calculation
+- `create-vault` -> when bridging to flow we need a vault before to receive the tokens. function here creates them. `get-vaults` helps to see vaults for a wallet. 
+- `settings.json` has a filter to tokens supported and details about the bridge involved
+- Rest of files like `flow-authorize` are still needed, but part of the server repo already.
