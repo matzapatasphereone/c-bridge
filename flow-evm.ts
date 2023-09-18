@@ -1,6 +1,7 @@
 import "dotenv/config";
 import * as fcl from "@onflow/fcl";
 import { flowAuthorize } from "./flow-authorize";
+import { sha3_256 } from "js-sha3";
 
 const FLOW_RPC = process.env.FLOW_QUICKNODE_RPC;
 
@@ -43,12 +44,8 @@ const flowToEvm = async ({
           }
         }
       `,
-        fcl.proposer((account: any) =>
-          flowAuthorize(account, fromAddress, fromPrivateKey)
-        ),
-        fcl.payer((account: any) =>
-          flowAuthorize(account, fromAddress, fromPrivateKey)
-        ),
+        fcl.proposer((account: any) => flowAuthorize(account, fromAddress, fromPrivateKey)),
+        fcl.payer((account: any) => flowAuthorize(account, fromAddress, fromPrivateKey)),
         fcl.authorizations([
           (account: any) => flowAuthorize(account, fromAddress, fromPrivateKey)
         ]),
@@ -56,12 +53,20 @@ const flowToEvm = async ({
       ])
       .then(fcl.decode);
 
-    return transactionHash;
+    // Calculate burn id
+    const user = "0x2ab3795316e19c35"; // Address as a string
+    const tokStr = "A.231cc0dbbcffc4b7.ceMATIC.Vault";
+    const amt = "3.00000000";
+    const burnId = sha3_256(user + tokStr + amt + nonce);
+
+    return {transactionHash, transactionId: burnId}
   } catch (e: any) {
     console.log("error", e);
     return null;
   }
 };
+
+
 
 // MATIC
 // https://flowscan.org/transaction/c56b521736d24054db0e01737d94b6c5166e8568203c8e4744361206b2f570d2/script
@@ -71,6 +76,7 @@ const flowToEvm = async ({
 //   fromPrivateKey: "...",
 //   fromAmount: 3,
 //   tokenVault: "/storage/ceMATICVault",
+//   tokenAddress: "A.231cc0dbbcffc4b7.ceMATIC.Vault",
 //   toChainId: 137
 // }).then(console.log)
 

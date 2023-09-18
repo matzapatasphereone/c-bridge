@@ -54,30 +54,6 @@ async function getTransactionStatus(transfer_id: string) {
 }
 
 
-async function generateTransferId() {
-    const transfer_id = ethers.utils.solidityKeccak256(
-        [
-            "address",
-            "address",
-            "address",
-            "uint256",
-            "uint64",
-            "uint64",
-            "uint64"
-        ],
-        [
-            "0xc5da449d051c1338a3c2aaf2b6c739d06abe2508", /// User's wallet address, 
-            "0xc5da449d051c1338a3c2aaf2b6c739d06abe2508", /// User's wallet address, 
-            "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270", /// Wrap token address/ ERC20 token address 
-            "1000000000000000000", /// Send amount in String 
-            "12340001", /// Destination chain id
-            "1694731423818", /// Nonce
-            "137", /// Source chain id
-        ],
-    )
-
-    return transfer_id;
-}
 
 // console.log("time estimations: ", await getTimeEstimation(1, 127));
 // getAmountEstimation(137, 12340001, "MATIC", "1000000000000000000").then(console.log)
@@ -114,27 +90,27 @@ async function generateTransferId() {
 //     sender: '0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508',
 //     receiver: '0x0000000000000000000000002aB3795316e19c35'
 // }
-const mint_id = ethers.utils.solidityKeccak256(
-    [
-     "address",
-     "address",
-     "uint256", 
-     "uint64", 
-     "address",
-     "uint64", 
-     "uint64"
-    ], 
-    [
-     "0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508", /// User's wallet address, 
-     "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", /// selectedTokenAddress,
-     "12000000000000000", /// Mint amount in String 
-     "12340001", /// Pegged Chain Id
-     "0x0000000000000000000000002aB3795316e19c35", /// User's wallet address, 
-     "1694819940504", /// Nonce
-     "56", /// Original chain id
-    ],
-)
-console.log(mint_id)
+// const mint_id = ethers.utils.solidityKeccak256(
+//     [
+//      "address",
+//      "address",
+//      "uint256", 
+//      "uint64", 
+//      "address",
+//      "uint64", 
+//      "uint64"
+//     ], 
+//     [
+//      "0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508", /// User's wallet address, 
+//      "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", /// selectedTokenAddress,
+//      "12000000000000000", /// Mint amount in String 
+//      "12340001", /// Pegged Chain Id
+//      "0x0000000000000000000000002aB3795316e19c35", /// User's wallet address, 
+//      "1694819940504", /// Nonce
+//      "56", /// Original chain id
+//     ],
+// )
+// console.log(mint_id)
 
 
 /// Example transaction:

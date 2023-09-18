@@ -9,64 +9,88 @@ import { ethers, BigNumber } from "ethers"
 
 
 async function evmToFlowNative({
-    contract_address,
-    private_key,
-    provider_url,
+    contractAddress,
+    privateKey,
+    providerUrl,
     amount,
-    to_chain_id,
-    to_address,
+    fromAddress,
+    fromChainId,
+    toAddress,
 }: {
-    contract_address: string,
-    private_key: string,
-    provider_url: string,
+    contractAddress: string,
+    privateKey: string,
+    providerUrl: string,
     amount: string,
-    to_chain_id: number,
-    to_address: string
+    fromAddress: string;
+    fromChainId: number,
+    toAddress: string
 }) {
-    const provider = new ethers.providers.JsonRpcProvider(provider_url);
-    const wallet = new ethers.Wallet(private_key, provider);
-    const cBridgeContract = new ethers.Contract(contract_address, [
+    const toChainId = 12340001;
+    const provider = new ethers.providers.JsonRpcProvider(providerUrl);
+    const wallet = new ethers.Wallet(privateKey, provider);
+    const cBridgeContract = new ethers.Contract(contractAddress, [
         "function depositNative(uint256 _amount, uint64 _mintChainId, address _mintAccount, uint64 _nonce) external payable returns (bytes32)"
     ], wallet);
 
     const nonce = Date.now()  // Nonce is timestamp as per https://cbridge-docs.celer.network/developer/api-reference/contract-pool-based-transfer
-    console.log("nonce", nonce);
     const tx = await cBridgeContract.depositNative(
         BigNumber.from(amount),
-        to_chain_id,
-        to_address,
+        toChainId,
+        toAddress,
         nonce,
         {
             value: BigNumber.from(amount), // This should match amount for bnb minimum is 0.01
+            // TODO:
             // gasPrice: ethers.utils.parseEther("0.000000139437606192") // POLYGON
             gasPrice: ethers.utils.parseEther(".000000003") // BSC
         }
     );
+    const mint_id = ethers.utils.solidityKeccak256(
+        [
+         "address",
+         "address",
+         "uint256", 
+         "uint64", 
+         "address",
+         "uint64", 
+         "uint64"
+        ], 
+        [
+         fromAddress, /// User's wallet address, 
+         "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", /// selectedTokenAddress,
+         amount, /// Mint amount in String 
+         String(toChainId), /// Pegged Chain Id
+         "0x0000000000000000000000002aB3795316e19c35", /// User's wallet address, 
+         String(nonce), /// Nonce
+         String(fromChainId), /// Original chain id
+        ],
+    )
+
     await tx.wait();
 
-    return tx.hash;
+    return {hash: tx.hash, txid: mint_id};
 }
 
 // MATIC
 // evmToFlowNative({
-//     contract_address: "0xc1a2d967dfaa6a10f3461bc21864c23c1dd51eea",
-//     private_key: "...",
-//     provider_url: 'https://polygon-mainnet.g.alchemy.com/v2/...',
+//     contractAddress: "0xc1a2d967dfaa6a10f3461bc21864c23c1dd51eea",
+//     privateKey: "...",
+//     providerUrl: 'https://polygon-mainnet.g.alchemy.com/v2/...',
 //     amount: "1000000000000000000",
 //     to_chain_id: 12340001,
-//     to_address: "0x0000000000000000000000005B3109DEe582145b",
+//     toAddress: "0x0000000000000000000000005B3109DEe582145b",
 // }).then(console.log)
     
 
 // BNB
 // https://bscscan.com/tx/0x388ff18fb2c75bb129010e881746a69127a73ddb660956187c7de1e6a56191cd
 // evmToFlowNative({
-//     contract_address: "0x78bc5Ee9F11d133A08b331C2e18fE81BE0Ed02DC",
-//     private_key: "...",
-//     provider_url: 'https://purple-alpha-breeze.bsc.quiknode.pro/.../',
+//     contractAddress: "0x78bc5Ee9F11d133A08b331C2e18fE81BE0Ed02DC",
+//     privateKey: "...",
+//     providerUrl: 'https://purple-alpha-breeze.bsc.quiknode.pro/.../',
 //     amount: "12000000000000000",
 //     to_chain_id: 12340001,
-//     to_address: "0x0000000000000000000000002ab3795316e19c35",
+//     toAddress: "0x0000000000000000000000002ab3795316e19c35",
 // }).then(console.log)
 
 
