@@ -1,0 +1,482 @@
+{
+    "chains": [
+        {
+            "id": 12340001,
+            "name": "Flow Mainnet",
+            "icon": "https://get.celer.app/cbridge-icons/chain-icon/FLOW.png",
+            "block_delay": 0,
+            "gas_token_symbol": "FLOW",
+            "explore_url": "https://flowscan.org",
+            "contract_addr": "0x00000000000000000000000008dd120226EC2213",
+            "drop_gas_amt": "0",
+            "drop_gas_cost_amt": "0",
+            "drop_gas_balance_alert": "0",
+            "suggested_gas_cost": "980",
+            "flat_usd_fee": 0.5,
+            "farming_reward_contract_addr": "",
+            "transfer_agent_contract_addr": ""
+        }
+    ],
+    "pegged": [
+        {
+            "org_chain_id": 1,
+            "org_token": {
+                "token": {
+                    "symbol": "DAI",
+                    "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Dai Stablecoin",
+                "icon": "https://get.celer.app/cbridge-icons/DAI.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "DAI",
+                    "address": "A.231cc0dbbcffc4b7.ceDAI.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Dai Stablecoin",
+                "icon": "https://get.celer.app/cbridge-icons/DAI.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0xB37D31b2A74029B5951a2778F959282E2D518595",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 1,
+            "org_token": {
+                "token": {
+                    "symbol": "USDT",
+                    "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+                    "decimal": 6,
+                    "xfer_disabled": false
+                },
+                "name": "Tether USD",
+                "icon": "https://get.celer.app/cbridge-icons/USDT.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "USDT",
+                    "address": "A.231cc0dbbcffc4b7.ceUSDT.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Tether USD",
+                "icon": "https://get.celer.app/cbridge-icons/USDT.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0xB37D31b2A74029B5951a2778F959282E2D518595",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 1,
+            "org_token": {
+                "token": {
+                    "symbol": "WETH",
+                    "address": "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Wrapped Ether",
+                "icon": "https://get.celer.app/cbridge-icons/WETH.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "WETH",
+                    "address": "A.231cc0dbbcffc4b7.ceWETH.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Wrapped Ether",
+                "icon": "https://get.celer.app/cbridge-icons/ETH.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0x7510792A3B1969F9307F3845CE88e39578f2bAE1",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 2,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 56,
+            "org_token": {
+                "token": {
+                    "symbol": "BNB",
+                    "address": "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Binance Coin",
+                "icon": "https://get.celer.app/cbridge-icons/BNB.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "BNB",
+                    "address": "A.231cc0dbbcffc4b7.ceBNB.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Binance Coin",
+                "icon": "https://get.celer.app/cbridge-icons/BNB.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0x78bc5Ee9F11d133A08b331C2e18fE81BE0Ed02DC",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 56,
+            "org_token": {
+                "token": {
+                    "symbol": "BUSD",
+                    "address": "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Binance USD",
+                "icon": "https://get.celer.app/cbridge-icons/BUSD.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "BUSD",
+                    "address": "A.231cc0dbbcffc4b7.ceBUSD.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Binance USD",
+                "icon": "https://get.celer.app/cbridge-icons/BUSD.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0x78bc5Ee9F11d133A08b331C2e18fE81BE0Ed02DC",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 137,
+            "org_token": {
+                "token": {
+                    "symbol": "MATIC",
+                    "address": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Matic Token",
+                "icon": "https://get.celer.app/cbridge-icons/MATIC.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "MATIC",
+                    "address": "A.231cc0dbbcffc4b7.ceMATIC.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Matic Token",
+                "icon": "https://get.celer.app/cbridge-icons/MATIC.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0xc1a2D967DfAa6A10f3461bc21864C23C1DD51EeA",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 250,
+            "org_token": {
+                "token": {
+                    "symbol": "FTM",
+                    "address": "0x21be370D5312f44cB42ce377BC9b8a0cEF1A4C83",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Fantom",
+                "icon": "https://get.celer.app/cbridge-icons/FTM.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "FTM",
+                    "address": "A.231cc0dbbcffc4b7.ceFTM.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Fantom",
+                "icon": "https://get.celer.app/cbridge-icons/FTM.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0x7D91603E79EA89149BAf73C9038c51669D8F03E9",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 43114,
+            "org_token": {
+                "token": {
+                    "symbol": "AVAX",
+                    "address": "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Avalanche",
+                "icon": "https://get.celer.app/cbridge-icons/AVAX.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 12340001,
+            "pegged_token": {
+                "token": {
+                    "symbol": "AVAX",
+                    "address": "A.231cc0dbbcffc4b7.ceAVAX.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Avalanche",
+                "icon": "https://get.celer.app/cbridge-icons/AVAX.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "0x5427FEFA711Eff984124bFBB1AB6fbf5E3DA1820",
+            "pegged_burn_contract_addr": "08dd120226ec2213",
+            "canonical_token_contract_addr": "",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 12340001,
+            "org_token": {
+                "token": {
+                    "symbol": "celrWFLOW",
+                    "address": "A.1654653399040a61.FlowToken.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "Flow Token",
+                "icon": "https://get.celer.app/cbridge-icons/FLOW.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 1,
+            "pegged_token": {
+                "token": {
+                    "symbol": "celrWFLOW",
+                    "address": "0xB66954619363145a05eF835547449EB9050d82f6",
+                    "decimal": 18,
+                    "xfer_disabled": false
+                },
+                "name": "Wrapped Flow",
+                "icon": "https://get.celer.app/cbridge-icons/FLOW.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "08dd120226ec2213",
+            "pegged_burn_contract_addr": "0x52E4f244f380f8fA51816c8a10A63105dd4De084",
+            "canonical_token_contract_addr": "0x5c147e74D63B1D31AA3Fd78Eb229B65161983B2b",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+        {
+            "org_chain_id": 12340001,
+            "org_token": {
+                "token": {
+                    "symbol": "cfUSDC",
+                    "address": "A.b19436aae4d94622.FiatToken.Vault",
+                    "decimal": 8,
+                    "xfer_disabled": false
+                },
+                "name": "USD Coin",
+                "icon": "https://get.celer.app/cbridge-icons/USDC.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_chain_id": 1,
+            "pegged_token": {
+                "token": {
+                    "symbol": "cfUSDC",
+                    "address": "0x317F8d18FB16E49a958Becd0EA72f8E153d25654",
+                    "decimal": 6,
+                    "xfer_disabled": false
+                },
+                "name": "USD Coin",
+                "icon": "https://get.celer.app/cbridge-icons/USDC.png",
+                "inbound_lmt": "",
+                "inbound_epoch_cap": "",
+                "transfer_disabled": false,
+                "liq_add_disabled": false,
+                "liq_rm_disabled": false,
+                "liq_agg_rm_src_disabled": false,
+                "delay_threshold": "",
+                "delay_period": 0
+            },
+            "pegged_deposit_contract_addr": "08dd120226ec2213",
+            "pegged_burn_contract_addr": "0x52E4f244f380f8fA51816c8a10A63105dd4De084",
+            "canonical_token_contract_addr": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "vault_version": 0,
+            "bridge_version": 2,
+            "migration_peg_burn_contract_addr": ""
+        },
+    ]
+}
