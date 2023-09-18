@@ -26,8 +26,6 @@ export const flowAuthorize = async (
     address: string,
     privateKey: string
 ) => {
-    console.log("flowAuthorize", account, address, privateKey)
-
     return {
         ...account,
         tempId: `${address}-${KEY_ID}`,

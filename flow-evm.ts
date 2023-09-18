@@ -56,9 +56,10 @@ const flowToEvm = async ({
       ])
       .then(fcl.decode);
 
-    console.log("transactionHash", transactionHash)
+    return transactionHash;
   } catch (e: any) {
     console.log("error", e);
+    return null;
   }
 };
 
@@ -71,7 +72,7 @@ const flowToEvm = async ({
 //   fromAmount: 3,
 //   tokenVault: "/storage/ceMATICVault",
 //   toChainId: 137
-// })
+// }).then(console.log)
 
 
 // BNB
@@ -82,4 +83,4 @@ const flowToEvm = async ({
 //   fromAmount: 0.015,
 //   tokenVault: "/storage/ceBNBVault",
 //   toChainId: 56
-// })
+// }).then(console.log)

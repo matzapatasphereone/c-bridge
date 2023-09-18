@@ -1,6 +1,7 @@
 import "dotenv/config"
 import axios from "axios"
 import { ethers, BigNumber } from "ethers"
+import { sha3_256 } from "js-sha3"
 
 // Transactions
 // MATIC -> MATIC (flow) via UI
@@ -52,29 +53,6 @@ async function getTransactionStatus(transfer_id: string) {
 
 }
 
-async function depositNative(contract_address: string, private_key: string, provider_url: string, amount: string, to_chain_id: number, to_address: string) {
-    const provider = new ethers.providers.JsonRpcProvider(provider_url);
-    const wallet = new ethers.Wallet(private_key, provider);
-    const cBridgeContract = new ethers.Contract(contract_address, [
-        "function depositNative(uint256 _amount, uint64 _mintChainId, address _mintAccount, uint64 _nonce) external payable returns (bytes32)"
-    ], wallet);
-
-    const nonce = Date.now()  // Nonce is timestamp as per https://cbridge-docs.celer.network/developer/api-reference/contract-pool-based-transfer
-    console.log("nonce", nonce);
-    const tx = await cBridgeContract.depositNative(
-        BigNumber.from(amount),
-        to_chain_id,
-        to_address,
-        nonce,
-        {
-            value: ethers.utils.parseEther("1.0"),
-            gasPrice: ethers.utils.parseEther("0.000000139437606192")
-        }
-    );
-    await tx.wait();
-
-    console.log('Transaction Hash:', tx.hash);
-}
 
 async function generateTransferId() {
     const transfer_id = ethers.utils.solidityKeccak256(
@@ -103,21 +81,10 @@ async function generateTransferId() {
 
 // console.log("time estimations: ", await getTimeEstimation(1, 127));
 // getAmountEstimation(137, 12340001, "MATIC", "1000000000000000000").then(console.log)
-gerTransactionsHistory("0xc5da449d051c1338a3c2aaf2b6c739d06abe2508", "0x2ab3795316e19c35").then(console.log)
+// gerTransactionsHistory("0xc5da449d051c1338a3c2aaf2b6c739d06abe2508", "0x2ab3795316e19c35").then(console.log)
 // console.log("transactions status", await getTransactionStatus("0xccbfe803c03346f891b416174303f58784e947efaa084ad67ea3067597baef79"))
 // console.log("transfer id", await generateTransferId())
 
-// TODO:
-// depositNative("0xc1a2d967dfaa6a10f3461bc21864c23c1dd51eea", private_key, 'https://polygon-mainnet.g.alchemy.com/v2/...', "1000000000000000000", 12340001, "0x0000000000000000000000005B3109DEe582145b")
-
-
-// Direct pool
-// To accomplished user's transfer, FE(front-end) needs to do the following things:
-// - Get basic transfer configs to get correct user' input for assets transfer
-// - After collecting all needed information, always get updated estimation for the transfer.
-// - Check user's on-chain token allowance for cBridge contract. If the allowance is not enough for user token transfer, trigger the corresponding on-chain approve flow
-// - Submit on-chain transfer request to cBridge contract on source chain
-// - Get transfer status repeatedly to check whether the transfer is complete.
 
 
 
@@ -131,50 +98,64 @@ gerTransactionsHistory("0xc5da449d051c1338a3c2aaf2b6c739d06abe2508", "0x2ab37953
 // celrWFLOW (FLOW) -> celrWFLOW (ETH
 // cfUSDC (FLOW) -> cfUSDC (ETH)
 
-// MATIC -> MATIC
-const config = {
-    "org_chain_id": 137,
-    "org_token": {
-        "token": {
-            "symbol": "MATIC",
-            "address": "0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270",
-            "decimal": 18,
-            "xfer_disabled": false
-        },
-        "name": "Matic Token",
-        "icon": "https://get.celer.app/cbridge-icons/MATIC.png",
-        "inbound_lmt": "",
-        "inbound_epoch_cap": "",
-        "transfer_disabled": false,
-        "liq_add_disabled": false,
-        "liq_rm_disabled": false,
-        "liq_agg_rm_src_disabled": false,
-        "delay_threshold": "",
-        "delay_period": 0
-    },
-    "pegged_chain_id": 12340001,
-    "pegged_token": {
-        "token": {
-            "symbol": "MATIC",
-            "address": "A.231cc0dbbcffc4b7.ceMATIC.Vault",
-            "decimal": 8,
-            "xfer_disabled": false
-        },
-        "name": "Matic Token",
-        "icon": "https://get.celer.app/cbridge-icons/MATIC.png",
-        "inbound_lmt": "",
-        "inbound_epoch_cap": "",
-        "transfer_disabled": false,
-        "liq_add_disabled": false,
-        "liq_rm_disabled": false,
-        "liq_agg_rm_src_disabled": false,
-        "delay_threshold": "",
-        "delay_period": 0
-    },
-    "pegged_deposit_contract_addr": "0xc1a2D967DfAa6A10f3461bc21864C23C1DD51EeA",
-    "pegged_burn_contract_addr": "08dd120226ec2213",
-    "canonical_token_contract_addr": "",
-    "vault_version": 0,
-    "bridge_version": 2,
-    "migration_peg_burn_contract_addr": ""
-}
+/// Example transaction:
+// {
+//     transfer_id: '0x4ec14bda025a3108ed74d8fa22e7f213c8d401932b2f6b98f85d51ff1a440e82',
+//     src_send_info: [Object],
+//     dst_received_info: [Object],
+//     ts: '1694819987745',
+//     src_block_tx_link: 'https://bscscan.com/tx/0x388ff18fb2c75bb129010e881746a69127a73ddb660956187c7de1e6a56191cd',
+//     dst_block_tx_link: 'https://flowscan.org/transaction/0x6e5a2ec26d056fbf895b0b3c3b560f677ca5da4e42cad68459d22589c5fff017',
+//     status: 5,
+//     refund_reason: 0,
+//     update_ts: '1694820068808',
+//     bridge_type: 2,
+//     dst_deadline: '0',
+//     sender: '0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508',
+//     receiver: '0x0000000000000000000000002aB3795316e19c35'
+// }
+const mint_id = ethers.utils.solidityKeccak256(
+    [
+     "address",
+     "address",
+     "uint256", 
+     "uint64", 
+     "address",
+     "uint64", 
+     "uint64"
+    ], 
+    [
+     "0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508", /// User's wallet address, 
+     "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c", /// selectedTokenAddress,
+     "12000000000000000", /// Mint amount in String 
+     "12340001", /// Pegged Chain Id
+     "0x0000000000000000000000002aB3795316e19c35", /// User's wallet address, 
+     "1694819940504", /// Nonce
+     "56", /// Original chain id
+    ],
+)
+console.log(mint_id)
+
+
+/// Example transaction:
+// {
+//     transfer_id: '0xd0697b55c1cf583e6a67d1194ef97550c8e63549f8a021475e9ca42aaa23aa02',
+//     src_send_info: [Object],
+//     dst_received_info: [Object],
+//     ts: '1694813967256',
+//     src_block_tx_link: 'https://flowscan.org/transaction/0xc56b521736d24054db0e01737d94b6c5166e8568203c8e4744361206b2f570d2',
+//     dst_block_tx_link: 'https://polygonscan.com/tx/0xc3fd189c01f9090a637138d32ffaca0303d958751a7edb977db660de722bf58e',
+//     status: 5,
+//     refund_reason: 0,
+//     update_ts: '1694814501095',
+//     bridge_type: 3,
+//     dst_deadline: '0',
+//     sender: '0x0000000000000000000000002aB3795316e19c35',
+//     receiver: '0xc5dA449D051c1338A3C2aaf2b6C739d06aBe2508'
+//   }
+const user = "0x2ab3795316e19c35"; // Address as a string
+const tokStr = "A.231cc0dbbcffc4b7.ceMATIC.Vault";
+const amt = "3.00000000";
+const nonce = "1694813951647";
+const burnId = sha3_256(user + tokStr + amt + nonce);
+console.log(burnId); 
