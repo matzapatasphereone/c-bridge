@@ -87,6 +87,6 @@ const flowToEvm = async ({
 //   fromPrivateKey: "...",
 //   fromAmount: 0.015,
 //   tokenVault: "/storage/ceBNBVault",
-//   tokenAddress: "",
+//   tokenAddress: "A.231cc0dbbcffc4b7.ceBNB.Vault",
 //   toChainId: 56
 // }).then(console.log)
