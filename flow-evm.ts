@@ -13,7 +13,8 @@ const flowToEvm = async ({
   fromPrivateKey,
   fromAmount,
   tokenVault,
-  toChainId
+  toChainId,
+  tokenAddress
 }: {
   fromAddress: string;
   fromPrivateKey: string;
@@ -21,6 +22,7 @@ const flowToEvm = async ({
   toChainId: number;
   fromAmount: number;
   tokenVault: string;
+  tokenAddress: string;
 }) => {
   // Convert Amount to FLOW units with 8 decimal places
   try {
@@ -54,10 +56,7 @@ const flowToEvm = async ({
       .then(fcl.decode);
 
     // Calculate burn id
-    const user = "0x2ab3795316e19c35"; // Address as a string
-    const tokStr = "A.231cc0dbbcffc4b7.ceMATIC.Vault";
-    const amt = "3.00000000";
-    const burnId = sha3_256(user + tokStr + amt + nonce);
+    const burnId = sha3_256(fromAddress + tokenAddress + fromAmount.toFixed(8) + nonce);
 
     return {transactionHash, transactionId: burnId}
   } catch (e: any) {
@@ -72,7 +71,7 @@ const flowToEvm = async ({
 // https://flowscan.org/transaction/c56b521736d24054db0e01737d94b6c5166e8568203c8e4744361206b2f570d2/script
 // flowToEvm({
 //   toAddress: "...",
-//   fromAddress: "...",
+//   fromAddress: "...", // example: "0x2ab3795316e19c35"
 //   fromPrivateKey: "...",
 //   fromAmount: 3,
 //   tokenVault: "/storage/ceMATICVault",
@@ -88,5 +87,6 @@ const flowToEvm = async ({
 //   fromPrivateKey: "...",
 //   fromAmount: 0.015,
 //   tokenVault: "/storage/ceBNBVault",
+//   tokenAddress: "",
 //   toChainId: 56
 // }).then(console.log)

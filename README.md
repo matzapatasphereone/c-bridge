@@ -9,3 +9,4 @@ Important files are:
 - `create-vault` -> when bridging to flow we need a vault before to receive the tokens. function here creates them. `get-vaults` helps to see vaults for a wallet. 
 - `settings.json` has a filter to tokens supported and details about the bridge involved
 - Rest of files like `flow-authorize` are still needed, but part of the server repo already.
+- waiting logic can be found in evm-flow and can be replicated to the rest of the functions in the same manner

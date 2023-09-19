@@ -26,6 +26,41 @@ const getGasPrice = (chainId) => {
     return gasPriceMap[chainId]
 }
 
+const getProviderUrl = (chainId: number) => {
+    const providerMap = {
+        137: process.env.POLY_RPC,
+        56: process.env.BNB_RPC
+    }
+
+    return providerMap[chainId]
+}
+
+const getBridgeDepositLimits = async (chainId: number, tokenAddress: string) => {
+    const provider = new ethers.providers.JsonRpcProvider(getProviderUrl(chainId));
+    
+    const cBridgeContract = new ethers.Contract(getContractAddress(chainId), [
+        {
+            constant: true,
+            inputs: [{ name: 'user', type: 'address' }],
+            name: 'minDeposit',
+            outputs: [{ name: '', type: 'uint256' }],
+            type: 'function',
+        },
+        {
+            constant: true,
+            inputs: [{ name: 'user', type: 'address' }],
+            name: 'maxDeposit',
+            outputs: [{ name: '', type: 'uint256' }],
+            type: 'function',
+        },
+    ], provider);
+
+    return {
+        min: await cBridgeContract.minDeposit(tokenAddress),
+        max: await cBridgeContract.maxDeposit(tokenAddress),
+    }
+}
+
 async function evmToFlowNative({
     tokenAddress,
     privateKey,
@@ -89,6 +124,9 @@ async function evmToFlowNative({
     return { hash: tx.hash, txid: mint_id };
 }
 
+// GET LIMITS BNB example:
+getBridgeDepositLimits(56, "0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c").then(console.log)
+
 // MATIC
 // evmToFlowNative({
 //     contractAddress: "0xc1a2d967dfaa6a10f3461bc21864c23c1dd51eea",
@@ -98,7 +136,6 @@ async function evmToFlowNative({
 //     to_chain_id: 12340001,
 //     toAddress: "0x0000000000000000000000005B3109DEe582145b",
 // }).then(console.log)
-
 
 // BNB
 // https://bscscan.com/tx/0x388ff18fb2c75bb129010e881746a69127a73ddb660956187c7de1e6a56191cd
@@ -128,5 +165,4 @@ async function evmToFlowNative({
 //         await new Promise(resolve => setTimeout(resolve, 30000));
 //     }
 // })
-
 
